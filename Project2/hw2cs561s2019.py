@@ -1,6 +1,6 @@
 import random
 def input_airplane():
-    f = open('input26.txt', 'r')
+    f = open('input0.txt', 'r')
     context = f.readlines()
     b = []
     for i in range(int(context[1])):
@@ -13,7 +13,7 @@ def input_airplane():
     return plane
 
 def input_LGT():
-    f = open('input26.txt', 'r')
+    f = open('input0.txt', 'r')
     a = f.readline().strip().split()
     b = [0, 0, 0]
     for i in range(3):
@@ -96,7 +96,7 @@ def main():
         if pop_p[0][0] == 0:
             return pop_p[0]
         else:
-            for i in range(pop / 2):
+            for i in range(int(pop / 2)):
                 g = crossover(a, pop_p[i], pop_p[i + 1])
                 pop_p.append((fitness(time_length, g, a, L, G, T), g))
             pop_p.sort()
@@ -105,3 +105,5 @@ def main():
 a = main()
 output(a)
 print(a)
+
+
