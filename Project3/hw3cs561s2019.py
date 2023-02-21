@@ -23,9 +23,9 @@ def get_utility_table(table, poss_list, p, rs, gamma, e):
                                                  utility_action_left(table, i[0], i[1], p))
             if abs(table[i[0]][i[1]] - table_current[i[0]][i[1]]) > delta:
                 delta = abs(table[i[0]][i[1]] - table_current[i[0]][i[1]])
+            print(table)
         if delta < e * (1 - gamma)/gamma:
             return table_current
-
 
 def utility_action_up(table, x, y, p):  # table and one coordinate
     if x - 1 < 0:
@@ -207,7 +207,7 @@ def output(table):
 
 def main():
     e = 0.01
-    f = open('input5.txt', 'r')
+    f = open('input0.txt', 'r')
     context = f.readlines()
     wall = []
     wall_num = int(context[1])
@@ -219,8 +219,11 @@ def main():
     for i in range(exi_num):
         c = context[3 + wall_num + i].strip().split(',')
         exi.append(c)
+    #initial value in each cell
     rs = float(context[-2])
+    # probability to transform
     p = float(context[-3])
+    # penal param
     gamma = float(context[-1])
     get_initial_table = list()
     for i in range(int(context[0])):
@@ -230,6 +233,8 @@ def main():
     for i in range(exi_num):
         get_initial_table[int(exi[i][0]) - 1][int(exi[i][1]) - 1] = float(exi[i][2])
     table = copy.copy(get_initial_table)
+    print(table)
+    # possible position to move
     poss_list = get_possible_index(table, rs)
     final_table = get_utility_table(table, poss_list, p, rs, gamma, e)
     output_table = []
@@ -237,14 +242,17 @@ def main():
         output_table.append(["0"]*int(context[0]))
     for i in poss_list:
         output_table[i[0]][i[1]] = direction(final_table, i[0], i[1], p)[3][1]
+        print(direction(final_table, i[0], i[1], p))
+
     for i in range(wall_num):
         output_table[int(wall[i][0]) - 1][int(wall[i][1]) - 1] = "N"
     for i in range(exi_num):
         output_table[int(exi[i][0]) - 1][int(exi[i][1]) - 1] = "E"
+
     return output_table
 
 
 output(main())
 end=time.time()
-print end-start
+print(end-start)
 
